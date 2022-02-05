@@ -45,8 +45,13 @@ class Filter:
             greenIdxSet = secretIdxSet.intersection(queryIdxSet)
             for greenIdx in greenIdxSet:
                 filter[greenIdx] = Color.GREEN
+<<<<<<< HEAD
 
             numYellow = min(len(secretIdxSet) - len(greenIdxSet), len(queryIdxSet) - len(greenIdxSet))
+=======
+            
+            numYellow = min(len(secretIdxSet), len(queryIdxSet))  - len(greenIdxSet)
+>>>>>>> main
             if numYellow == 0:
                 continue
             for yellowIdx in sorted(list(queryIdxSet - greenIdxSet))[:numYellow]:
@@ -75,7 +80,7 @@ def filterFromInput() -> Filter:
     print("Enter lowercase colors with spaces in between: ", end='')
     i = input().split(" ")
     if len(i) != 5:
-        print("enter 5 colors separated with spaces")
+        print("Enter 5 colors separated with spaces")
         return None
     strToEnum = {"green": Color.GREEN, "gray": Color.GRAY, "yellow": Color.YELLOW}
     enums = []
