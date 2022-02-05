@@ -1,5 +1,5 @@
 # wordle
-solves wordle
+Solves wordle
 
 
 Example Output:
