@@ -67,8 +67,7 @@ def findBestWord(queryCandidates, secretCandidates):
         d = compute(query, secretCandidates)
         t = (max([len(v) for v in d.values()]), query)
         output.append(t)
-    output.sort(key=lambda x: x[0])
-    return output
+    return min(output, key = lambda x: x[0])[1]
 
 
 def filterFromInput() -> Filter:
@@ -90,6 +89,10 @@ def filterFromInput() -> Filter:
 with open("sgb-words.txt") as f:
     wordBank = [Word(s) for s in sorted(f.read().splitlines())]
 
+# assert Filter.compute(Word("oooll"), Word("llool")) == Filter(Color.YELLOW,Color.GRAY,Color.GREEN,Color.YELLOW,Color.GREEN)
+
+# Generated from findBestWord(wordBank, wordBank)[0][1], cached here since it takes a while. Need to rerun for new wordbank
+
 optimalFirstWord = Word("aloes")
 
 if __name__ == "__main__":
@@ -103,6 +106,6 @@ if __name__ == "__main__":
             filt = filterFromInput()
         secretSpace = filterToSecretSpace[filt]
         filt = None
-        query = findBestWord(wordBank, secretSpace)[0][1]
+        query = findBestWord(wordBank, secretSpace)
 
     print("Found:", secretSpace[0])
