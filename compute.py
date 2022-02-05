@@ -43,7 +43,7 @@ class Filter:
             for greenIdx in greenIdxSet:
                 filter[greenIdx] = Color.GREEN
             
-            numYellow = min(len(secretIdxSet) - len(greenIdxSet), len(queryIdxSet) - len(greenIdxSet))
+            numYellow = min(len(secretIdxSet), len(queryIdxSet))  - len(greenIdxSet)
             if numYellow == 0:
                 continue
             for yellowIdx in sorted(list(queryIdxSet - greenIdxSet))[:numYellow]:
@@ -83,8 +83,9 @@ def filterFromInput() -> Filter:
 with open("sgb-words.txt") as f:
     wordBank = [Word(s) for s in sorted(f.read().splitlines())]
 
-assert Filter.compute(Word("oooll"), Word("llool")) == Filter(Color.YELLOW,Color.GRAY,Color.GREEN,Color.YELLOW,Color.GREEN)
+# assert Filter.compute(Word("oooll"), Word("llool")) == Filter(Color.YELLOW,Color.GRAY,Color.GREEN,Color.YELLOW,Color.GREEN)
 
+# Generated from findBestWord(wordBank, wordBank)[0][1], cached here since it takes a while. Need to rerun for new wordbank
 optimalFirstWord = Word("aloes")
 
 if __name__ == "__main__":
