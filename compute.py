@@ -1,13 +1,12 @@
 from typing import List, Dict
 from enum import Enum
-import numpy as np
 from collections import defaultdict
 from dataclasses import dataclass
 
 class Color(Enum):
-    GRAY   = np.uint8(0)
-    YELLOW = np.uint8(1)
-    GREEN  = np.uint8(2)
+    GRAY   = 0
+    YELLOW = 1
+    GREEN  = 2
 
 class Word(defaultdict):
     def __init__(self, s: str):
