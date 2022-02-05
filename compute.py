@@ -69,7 +69,7 @@ def filterFromInput() -> Filter:
     print("Enter lowerspaced colors with spaces in between: ", end='')
     i = input().split(" ")
     if len(i) != 5:
-        print("entier 5 colors separated with spaces")
+        print("Enter 5 colors separated with spaces")
         return None
     strToEnum = {"green":Color.GREEN, "gray":Color.GRAY, "yellow":Color.YELLOW}
     enums = []
