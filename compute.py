@@ -45,13 +45,8 @@ class Filter:
             greenIdxSet = secretIdxSet.intersection(queryIdxSet)
             for greenIdx in greenIdxSet:
                 filter[greenIdx] = Color.GREEN
-<<<<<<< HEAD
 
             numYellow = min(len(secretIdxSet) - len(greenIdxSet), len(queryIdxSet) - len(greenIdxSet))
-=======
-            
-            numYellow = min(len(secretIdxSet), len(queryIdxSet))  - len(greenIdxSet)
->>>>>>> main
             if numYellow == 0:
                 continue
             for yellowIdx in sorted(list(queryIdxSet - greenIdxSet))[:numYellow]:
