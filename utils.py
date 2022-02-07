@@ -46,7 +46,7 @@ class Filter:
             for greenIdx in greenIdxSet:
                 filter[greenIdx] = Color.GREEN
 
-            numYellow = min(len(secretIdxSet) - len(greenIdxSet), len(queryIdxSet) - len(greenIdxSet))
+            numYellow = min(len(secretIdxSet), len(queryIdxSet))  - len(greenIdxSet)
             if numYellow == 0:
                 continue
             for yellowIdx in sorted(list(queryIdxSet - greenIdxSet))[:numYellow]:
@@ -69,6 +69,11 @@ def findBestWord(queryCandidates, secretCandidates):
         output.append(t)
     return min(output, key = lambda x: x[0])[1]
 
+def getWordBank(file:str = "sgb-words.txt") -> List[Word]:
+        with open(file) as f:
+            wordBank = [Word(s) for s in sorted(f.read().splitlines())]
+        return wordBank
+
 
 def filterFromInput() -> Filter:
     print("Enter lowercase colors with spaces in between: ", end='')
@@ -85,27 +90,3 @@ def filterFromInput() -> Filter:
         enums.append(strToEnum[c])
     return Filter(*enums)
 
-
-with open("sgb-words.txt") as f:
-    wordBank = [Word(s) for s in sorted(f.read().splitlines())]
-
-# assert Filter.compute(Word("oooll"), Word("llool")) == Filter(Color.YELLOW,Color.GRAY,Color.GREEN,Color.YELLOW,Color.GREEN)
-
-# Generated from findBestWord(wordBank, wordBank)[0][1], cached here since it takes a while. Need to rerun for new wordbank
-
-optimalFirstWord = Word("aloes")
-
-if __name__ == "__main__":
-    secretSpace: List[Word] = wordBank
-    query: Word = optimalFirstWord
-    filt: Filter = None
-    while len(secretSpace) > 1:
-        print("Next Word To Try:", query)
-        filterToSecretSpace = compute(query, secretSpace)
-        while not filt:
-            filt = filterFromInput()
-        secretSpace = filterToSecretSpace[filt]
-        filt = None
-        query = findBestWord(wordBank, secretSpace)
-
-    print("Found:", secretSpace[0])
