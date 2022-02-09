@@ -2,9 +2,10 @@ from utils import *
 from timeit import default_timer as timer
 
 if __name__ == "__main__":
-    wordBank = getWordBank()
+    queries = getWordBank("queries.txt")
+    solutions = getWordBank("solutions.txt")
     start = timer()
-    optimalFirstWord = findBestWord(wordBank, wordBank)
+    optimalFirstWord = findBestWord(queries, solutions)
     end = timer()
 
     print("Optimal First Word:  ", optimalFirstWord)

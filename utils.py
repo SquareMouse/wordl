@@ -69,7 +69,7 @@ def findBestWord(queryCandidates, secretCandidates):
         output.append(t)
     return min(output, key = lambda x: x[0])[1]
 
-def getWordBank(file:str = "sgb-words.txt") -> List[Word]:
+def getWordBank(file:str) -> List[Word]:
         with open(file) as f:
             wordBank = [Word(s) for s in sorted(f.read().splitlines())]
         return wordBank

@@ -1,20 +1,20 @@
 from utils import *
 
 
-optimalFirstWord = Word("aloes")
+optimalFirstWord = Word("aesir")
 
 if __name__ == "__main__":
-    wordBank = getWordBank()
-    secretSpace: List[Word] = wordBank
+    querySpace: List[Word] = getWordBank("queries.txt")
+    solutionSpace: List[Word] = getWordBank("solutions.txt")
     query: Word = optimalFirstWord
     filt: Filter = None
-    while len(secretSpace) > 1:
+    while len(solutionSpace) > 1:
         print("Next Word To Try:", query)
-        filterToSecretSpace = compute(query, secretSpace)
+        filterToSolutionSpace = compute(query, solutionSpace)
         while not filt:
             filt = filterFromInput()
-        secretSpace = filterToSecretSpace[filt]
+        solutionSpace = filterToSolutionSpace[filt]
         filt = None
-        query = findBestWord(wordBank, secretSpace)
+        query = findBestWord(querySpace, solutionSpace)
 
-    print("Found:", secretSpace[0])
+    print("Found:", solutionSpace[0])
