@@ -1,14 +1,15 @@
+#!/usr/bin/python
+
 from typing import List, Dict
 from enum import Enum
 from collections import defaultdict
 from dataclasses import dataclass
 
-
+_colors = ["⬛", "🟨", "🟩"]
 class Color(Enum):
     GRAY = 0
     YELLOW = 1
     GREEN = 2
-
 
 class Word(defaultdict):
     def __init__(self, s: str):
@@ -23,7 +24,6 @@ class Word(defaultdict):
     def __repr__(self):
         return self.__str__()
 
-
 @dataclass(frozen=True)
 class Filter:
     a: Color
@@ -31,6 +31,9 @@ class Filter:
     c: Color
     d: Color
     e: Color
+
+    def __str__(self):
+        return "".join([_colors[self.a.value], _colors[self.b.value], _colors[self.c.value], _colors[self.d.value], _colors[self.e.value]])
 
     def __hash__(self):
         return int(self.a.value + 3 * self.b.value + 9 * self.c.value + 27 * self.d.value + 81 * self.e.value)
@@ -69,6 +72,7 @@ def findBestWord(queryCandidates, secretCandidates):
         output.append(t)
     return min(output, key = lambda x: x[0])[1]
 
+
 def getWordBank(file:str) -> List[Word]:
         with open(file) as f:
             wordBank = [Word(s) for s in sorted(f.read().splitlines())]
@@ -89,4 +93,3 @@ def filterFromInput() -> Filter:
             return None
         enums.append(strToEnum[c])
     return Filter(*enums)
-
