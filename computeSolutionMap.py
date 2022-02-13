@@ -8,17 +8,13 @@ solvedFilter: Filter = Filter(Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN
 def enumerateOutput(queries, solutions: Dict[str,List[str]], filterToSolutionSpace):
     for filt, solutionSpace in filterToSolutionSpace.items():
         if len(solutionSpace) == 1:
-            s = solutionSpace[0]
-            v = solutions[str(s)]
-            v.append(str(filt))
-            v.append(str(s))
+            solution = solutionSpace[0]
+            solutions[str(solution)].extend([str(filt), str(solution)])
             continue
-        query = findBestWord(querySpace, solutionSpace)
+        query = findBestWord(queries, solutionSpace)
         nextFilterToSolutionSpace = compute(query, solutionSpace)
         for s in solutionSpace:
-            v = solutions[str(s)]
-            v.append(str(filt))
-            v.append(str(query))
+            solutions[str(s)].extend([str(filt), str(query)])
         enumerateOutput(queries, solutions, nextFilterToSolutionSpace)
     
 optimalFirstWord = Word("aesir")
@@ -26,7 +22,7 @@ optimalFirstWord = Word("aesir")
 if __name__ == "__main__":
     # solution, numTries, path...
     querySpace: List[Word] = getWordBank("queries.txt")
-    solutionSpace: List[Word] = getWordBank("solutions.txt")[:5]
+    solutionSpace: List[Word] = getWordBank("solutions.txt")
     solutions = {str(w):[optimalFirstWord] for w in solutionSpace}
 
     start = timer()
