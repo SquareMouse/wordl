@@ -1,4 +1,5 @@
 
+from os import linesep
 from utils import *
 from timeit import default_timer as timer
 
@@ -25,7 +26,7 @@ optimalFirstWord = Word("aesir")
 if __name__ == "__main__":
     # solution, numTries, path...
     querySpace: List[Word] = getWordBank("queries.txt")
-    solutionSpace: List[Word] = getWordBank("solutions.txt")
+    solutionSpace: List[Word] = getWordBank("solutions.txt")[:5]
     solutions = {str(w):[optimalFirstWord] for w in solutionSpace}
 
     start = timer()
@@ -39,7 +40,5 @@ if __name__ == "__main__":
 
     solutionPaths = sorted(list(solutions.values()))
     with open('solutionMap.txt', 'w') as f:
-        f.write('\n'.join([' '.join(map(str, row)) for row in solutionPaths]))
-        
-            
-
+        f.write(linesep.join([' '.join(map(str, row)) for row in solutionPaths]))
+        f.write(linesep)
